@@ -1,10 +1,11 @@
-AfriPlates
+#**AfriPlates**
 
 AfriPlates is a recipe recommendation web app tailored for Africans. Users can input available ingredients, and the app suggests authentic African recipes using those ingredients.
 
 Built for the Vibe Coding Hackathon
 
-Features
+
+##**Features**
 
 Login & Signup (with basic auth system)
 
@@ -16,7 +17,8 @@ About Page showcasing African dishes and the team
 
 Simple & Clean UI (HTML, CSS, JS + Flask backend)
 
-Tech Stack
+
+##**Tech Stack**
 
 Frontend: HTML, CSS, JavaScript
 
@@ -26,7 +28,8 @@ AI API: OpenAI GPT
 
 Extras: Flask-CORS for frontend-backend communication
 
-Project Structure
+
+##**Project Structure**
 
 AfriPlates/
 │── static/             # CSS, JS, images  
@@ -41,38 +44,37 @@ AfriPlates/
 │── README.md          
 
 
----
+##**Set-up and Installation**
 
-⚡ Setup & Installation
-
-1. Clone the repo
+###**1. Clone the repo**
 
 git clone https://github.com/your-username/afriplates.git
 cd afriplates
 
-2. Create a virtual environment
+###**2. Create a virtual environment**
 
 python -m venv venv
 source venv/bin/activate   # On Linux/Mac
 venv\Scripts\activate      # On Windows
 
-3. Install dependencies
+###**3. Install dependencies**
 
 pip install flask flask-cors openai
 
-4. Add your OpenAI API Key
+###**4. Add your OpenAI API Key**
 
 In app.py:
 
 openai.api_key = "YOUR_OPENAI_API_KEY"
 
-5. Run the app
+###**5. Run the app**
 
 python app.py
 
 Visit: http://127.0.0.1:5000
 
-Future Improvements
+
+##**Future Improvements**
 
 Add M-Pesa payments for premium recipes
 
@@ -80,7 +82,8 @@ Better personalized recommendations
 
 More African cuisines & cultures included
 
-Team AfriPlates
+
+##**Team AfriPlates**
 
 Flavian Onyango
 Paul Tibi
