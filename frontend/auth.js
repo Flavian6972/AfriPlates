@@ -15,15 +15,79 @@ showLogin.addEventListener("click", (e) => {
   loginForm.classList.remove("hidden");
 });
 
-// Example submit handler
-loginForm.addEventListener("submit", (e) => {
+// Login form handler
+loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  alert("Login successful (demo)");
-  window.location.href = "homePage.html"; // redirect to homepage
+
+  const email = loginForm.querySelector('input[type="email"]').value;
+  const password = loginForm.querySelector('input[type="password"]').value;
+
+  try {
+    const response = await fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: email,
+        password: password
+      })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert(`Welcome back, ${data.username}!`);
+      window.location.href = "/";
+    } else {
+      if (data.action === "signup") {
+        alert(`${data.error}. Please sign up first.`);
+        // Auto-switch to signup form
+        loginForm.classList.add("hidden");
+        signupForm.classList.remove("hidden");
+        // Pre-fill email
+        signupForm.querySelector('input[type="email"]').value = email;
+      } else {
+        alert(data.error);
+      }
+    }
+  } catch (error) {
+    alert('Login failed. Please try again.');
+  }
 });
 
-signupForm.addEventListener("submit", (e) => {
+// Signup form handler
+signupForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  alert("Signup successful (demo)");
-  window.location.href = "homePage.html";
+
+  const name = signupForm.querySelector('input[type="text"]').value;
+  const email = signupForm.querySelector('input[type="email"]').value;
+  const password = signupForm.querySelector('input[type="password"]').value;
+
+  try {
+    const response = await fetch('/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: email,
+        password: password
+      })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert('Account created successfully! Please log in.');
+      // Switch to login form and pre-fill email
+      signupForm.classList.add("hidden");
+      loginForm.classList.remove("hidden");
+      loginForm.querySelector('input[type="email"]').value = email;
+    } else {
+      alert(data.error);
+    }
+  } catch (error) {
+    alert('Signup failed. Please try again.');
+  }
 });

@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Recipe Recommender</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styling/styles.css') }}">
 </head>
+
 <body>
 
   <!-- Homepage-->
@@ -15,8 +17,13 @@
 
   <nav class="navbar">
     <ul>
-      <li><a href="login_page.html">Login</a></li>
-      <li><a href="#">Home</a></li>
+      {% if is_logged_in %}
+      <li><span style="color: #5A3E2B; font-weight: bold;">Welcome, {{ username }}!</span></li>
+      <li><a href="#" id="logout-btn">Sign Out</a></li>
+      {% else %}
+      <li><a href="{{ url_for('login_page') }}">Login</a></li>
+      {% endif %}
+      <li><a href="{{ url_for('home') }}">Home</a></li>
       <li><a href="#">About</a></li>
       <li><a href="#">FAQs</a></li>
       <li><a href="#">Reviews</a></li>
@@ -46,32 +53,33 @@
     </div><br><br>
 
     <div class="content"></div>
-  <!-- Step 2: Choose Country -->
-  <div id="country-section">
-    <h3>Choose Your Country</h3>
-    <div class="container">
-      <div class="card" onclick="selectCountry('Kenya')">🇰🇪 Kenya</div>
-      <div class="card" onclick="selectCountry('Nigeria')">🇳🇬 Nigeria</div>
-      <div class="card" onclick="selectCountry('Ghana')">🇬🇭 Ghana</div>
-      <div class="card" onclick="selectCountry('South Africa')">🇿🇦 South Africa</div>
-      <div class="card" onclick="selectCountry('Tanzania')">🇹🇿 Tanzania</div>
-      <div class="card" onclick="selectCountry('Uganda')">🇺🇬 Uganda</div>
+    <!-- Step 2: Choose Country -->
+    <div id="country-section">
+      <h3>Choose Your Country</h3>
+      <div class="container">
+        <div class="card" onclick="selectCountry('Kenya')">🇰🇪 Kenya</div>
+        <div class="card" onclick="selectCountry('Nigeria')">🇳🇬 Nigeria</div>
+        <div class="card" onclick="selectCountry('Ghana')">🇬🇭 Ghana</div>
+        <div class="card" onclick="selectCountry('South Africa')">🇿🇦 South Africa</div>
+        <div class="card" onclick="selectCountry('Tanzania')">🇹🇿 Tanzania</div>
+        <div class="card" onclick="selectCountry('Uganda')">🇺🇬 Uganda</div>
+      </div>
     </div>
-  </div>
 
-  <!-- Enter Ingredients -->
-  <div id="ingredients-section" class="hidden">
-    <h3 id="country-title"></h3>
-    <p>Enter ingredients (comma separated):</p>
-    <input type="text" id="ingredients" placeholder="e.g. chicken, tomato, onion">
-    <button onclick="getRecipes()">Get Recipes</button>
+    <!-- Enter Ingredients -->
+    <div id="ingredients-section" class="hidden">
+      <h3 id="country-title"></h3>
+      <p>Enter ingredients (comma separated):</p>
+      <input type="text" id="ingredients" placeholder="e.g. chicken, tomato, onion">
+      <button onclick="getRecipes()">Get Recipes</button>
 
-    <div id="results" class="results"></div>
-  </div>
+      <div id="results" class="results"></div>
+    </div>
   </main>
   <footer class="footer">
     &copy;2025 AfriPlates Recipe Recommender
   </footer>
-  <script src="interactive.js"></script>
+  <script src="{{ url_for('static', filename='interactive.js') }}"></script>
 </body>
+
 </html>

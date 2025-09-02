@@ -8,15 +8,26 @@ from openai import OpenAI
 from typing import Optional, cast
 import os
 
+# Import Intasend - problematic
+# from intasend import APIService
+
 # Initialize flask app
-app = Flask(__name__)
+app = Flask(__name__, template_folder="../frontend", static_folder="../frontend")
 
 # ---- CONFIG ----
 app.config["OPENAI_API_KEY"] = Config.OPENAI_API_KEY
 client = OpenAI(api_key=Config.OPENAI_API_KEY)
 
+# Initialize Intasend
+# intasend = APIService(
+#     token=Config.INTASEND_SECRET_KEY,
+#     publishable_key=Config.INTASEND_PUBLISHABLE_KEY,
+#     test=Config.INTASEND_TEST_MODE,
+# )
+
 # TiDB Cloud MySQL connection
 app.config["SQLALCHEMY_DATABASE_URI"] = Config.SQLALCHEMY_DATABASE_URI
+app.config["SECRET_KEY"] = Config.SECRET_KEY or "fallback-secret-key-for-development"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
     "connect_args": {
@@ -29,6 +40,7 @@ bcrypt = Bcrypt(app)
 
 # Enable CORS
 CORS(app)
+
 
 # ---- MODELS ----
 class User(db.Model):
@@ -53,6 +65,20 @@ class Recipe(db.Model):
         self.ingredients = ingredients
         self.recipes = recipes
         self.user_id = user_id
+
+
+# class Payment(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+#     recipe_id = db.Column(
+#         db.Integer, db.ForeignKey("popular_recipe.id"), nullable=False
+#     )
+#     amount = db.Column(db.Float, nullable=False)
+#     payment_status = db.Column(db.String(50), default="pending")
+#     payment_method = db.Column(db.String(50))
+#     transaction_id = db.Column(db.String(200))
+#     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
+
 
 # ---- ROUTES ----
 @app.route("/signup", methods=["POST"])
@@ -86,29 +112,58 @@ def login():
     if not username or not password:
         return jsonify({"error": "Username and password are required"}), 400
 
-    user: Optional[User] = cast(Optional[User], User.query.filter_by(username=username).first())
+    user: Optional[User] = cast(
+        Optional[User], User.query.filter_by(username=username).first()
+    )
     if not user:
-        return jsonify({"error": "User not found"}), 404
-    if user and bcrypt.check_password_hash(user.password, password):  # type: ignore
+        return jsonify({"error": "User not found", "action": "signup"}), 404
+    if bcrypt.check_password_hash(user.password, password):  # type: ignore
         session["user_id"] = user.id
-        return jsonify({"message": "Login successful"}), 200
-    return jsonify({"error": "Invalid username or password"}), 401
+        session["username"] = user.username
+        return jsonify({"message": "Login successful", "username": user.username}), 200
+    return jsonify({"error": "Invalid password"}), 401
+
+
+@app.route("/logout", methods=["POST"])
+def logout():
+    session.clear()
+    return jsonify({"message": "Logged out successfully"}), 200
+
+
+@app.route("/check_session")
+def check_session():
+    if "user_id" in session:
+        return jsonify({"logged_in": True, "username": session.get("username")}), 200
+    return jsonify({"logged_in": False}), 200
 
 
 @app.route("/")
 def home():
-    return render_template("homePage.html")
+    is_logged_in = "user_id" in session
+    username = session.get("username", "") if is_logged_in else ""
+    return render_template(
+        "homePage.html", is_logged_in=is_logged_in, username=username
+    )
+
+
+@app.route("/login")
+def login_page():
+    return render_template("login_page.html")
 
 
 @app.route("/recommend", methods=["POST"])
 def recommend():
+    # Check if user is logged in
+    if "user_id" not in session:
+        return jsonify({"error": "Please log in to get recipe recommendations"}), 401
+
     if not request.json:
         return jsonify({"error": "Invalid input"}), 400
 
     data = request.json
     ingredients = data.get("ingredients")
     if not ingredients:
-        return jsonify({"error": "Ingredients field is required"}, 400)
+        return jsonify({"error": "Ingredients field is required"}), 400
 
     prompt: str = (
         f"Suggest 3 simple recipes using these ingredients: {ingredients}. Keep it short and clear."
