@@ -118,7 +118,7 @@ AfriPlates/
 │   ├── config.py           # Configuration settings
 │   └── isrgrootx1.pem     # TiDB SSL certificate
 ├── frontend/
-│   ├── homePage.html       # Main dashboard
+│   ├── index.html       # Main dashboard
 │   ├── login_page.html     # Authentication page
 │   ├── auth.js            # Authentication logic
 │   ├── interactive.js     # Main functionality

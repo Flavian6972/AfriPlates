@@ -19,11 +19,11 @@ showLogin.addEventListener("click", (e) => {
 loginForm.addEventListener("submit", (e) => {
   e.preventDefault();
   alert("Login successful (demo)");
-  window.location.href = "homePage.html"; // redirect to homepage
+  window.location.href = "index.html"; // redirect to index
 });
 
 signupForm.addEventListener("submit", (e) => {
   e.preventDefault();
   alert("Signup successful (demo)");
-  window.location.href = "homePage.html";
+  window.location.href = "index.html";
 });
