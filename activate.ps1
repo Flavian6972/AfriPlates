@@ -9,3 +9,4 @@ if (Test-Path $venvPath) {
 } else {
     Write-Host "Error: venv not found at $venvPath"
     Write-Host "Run 'python -m venv .venv' to create it."
+}
