@@ -1,87 +1,297 @@
-#**AfriPlates**
+# 🍽️ AfriPlates - African Recipe Recommender
 
-AfriPlates is a recipe recommendation web app tailored for Africans. Users can input available ingredients, and the app suggests authentic African recipes using those ingredients.
+**For Africa, By Africa** - *Flavour | Culture | Home*
 
-Built for the Vibe Coding Hackathon
+AfriPlates is an AI-powered recipe recommendation platform that celebrates African cuisine by providing personalized recipe suggestions based on available ingredients, with integrated payment processing for premium content.
 
+## 🌟 Features
 
-##**Features**
+### Core Functionality
+- 🤖 **AI-Powered Recipe Generation** - Get personalized African recipes using OpenAI/Gemini
+- 🌍 **Country-Specific Recipes** - Choose from 6 African countries (Kenya, Nigeria, Ghana, South Africa, Tanzania, Uganda)
+- 👤 **User Authentication** - Secure signup/login system with session management
+- 📊 **Dashboard Analytics** - Track popular recipes, trending ingredients, and recipe statistics
+- 💳 **Payment Integration** - Purchase premium recipes using Intasend (M-Pesa, Card, Bank)
 
-Login & Signup (with basic auth system)
+### Advanced Features
+- 🔐 **Session Management** - Secure user sessions with Flask sessions
+- 🗄️ **Database Storage** - TiDB Cloud MySQL for scalable data storage
+- 📱 **Responsive Design** - Mobile-friendly interface
+- 🔄 **Real-time Updates** - Dynamic content loading and payment status tracking
 
-Recipe Recommendations powered by AI (OpenAI API)
+## 🛠️ Technology Stack
 
-African Food Focus – recipes inspired by different African countries
+### Backend
+- **Flask** - Python web framework
+- **SQLAlchemy** - Database ORM
+- **Flask-Bcrypt** - Password hashing
+- **OpenAI API** - Recipe generation
+- **Intasend API** - Payment processing
+- **TiDB Cloud** - MySQL database hosting
 
-About Page showcasing African dishes and the team
+### Frontend
+- **HTML5/CSS3** - Structure and styling
+- **JavaScript** - Interactive functionality
+- **Flask Templates** - Server-side rendering
 
-Simple & Clean UI (HTML, CSS, JS + Flask backend)
+### Database
+- **MySQL** - Primary database (TiDB Cloud)
+- **SSL Encryption** - Secure database connections
 
+## 📋 Prerequisites
 
-##**Tech Stack**
+- Python 3.8+
+- Git
+- OpenAI API Key (or Gemini API Key)
+- TiDB Cloud Account
+- Intasend Account (for payments)
 
-Frontend: HTML, CSS, JavaScript
+## 🚀 Installation & Setup
 
-Backend: Python (Flask)
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Flavian6972/AfriPlates.git
+cd AfriPlates
+```
 
-AI API: OpenAI GPT
+### 2. Create Virtual Environment
+```powershell
+# Windows PowerShell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 
-Extras: Flask-CORS for frontend-backend communication
+# Or use the provided activation script
+.\activate.ps1
+```
 
+### 3. Install Dependencies
+```powershell
+pip install flask flask-sqlalchemy flask-bcrypt flask-cors openai python-dotenv mysql-connector-python pymysql intasend-python
+```
 
-##**Project Structure**
+### 4. Environment Configuration
+Create a `.env` file in the project root:
 
+```env
+# AI Configuration
+OPENAI_API_KEY=your_openai_api_key_here
+# GEMINI_API_KEY=your_gemini_api_key_here
+
+# Database Configuration
+SQLALCHEMY_DATABASE_URI=mysql+pymysql://username:password@host:port/database
+
+# Security
+SECRET_KEY=your-super-secret-key-change-this-in-production
+
+# Intasend Payment Configuration
+INTASEND_PUBLISHABLE_KEY=your_intasend_publishable_key
+INTASEND_SECRET_KEY=your_intasend_secret_key
+INTASEND_TEST_MODE=True
+
+# Application Settings
+DEBUG=True
+```
+
+### 5. Database Setup
+Ensure your TiDB Cloud certificate is in the `backend` folder:
+```
+backend/isrgrootx1.pem
+```
+
+### 6. Run the Application
+```powershell
+# Activate virtual environment
+.\activate.ps1
+
+# Run the Flask app
+python backend\app.py
+```
+
+The application will be available at: `http://127.0.0.1:5000`
+
+## 📁 Project Structure
+
+```
 AfriPlates/
-│── static/             # CSS, JS, images  
-│   ├── styles.css  
-│   ├── interactive.js  
-│── templates/          # HTML pages  
-│   ├── index.html  
-│   ├── login.html  
-│   ├── about.html  
-│── app.py   
-│── auth.js            
-│── README.md          
+├── backend/
+│   ├── app.py              # Main Flask application
+│   ├── config.py           # Configuration settings
+│   └── isrgrootx1.pem     # TiDB SSL certificate
+├── frontend/
+│   ├── homePage.html       # Main dashboard
+│   ├── login_page.html     # Authentication page
+│   ├── auth.js            # Authentication logic
+│   ├── interactive.js     # Main functionality
+│   └── styling/
+│       ├── styles.css      # Main styles
+│       └── login_style.css # Authentication styles
+├── .env                   # Environment variables
+├── .gitignore            # Git ignore rules
+├── activate.ps1          # Virtual environment activation
+└── README.md             # This file
+```
 
+## 🎯 Usage Guide
 
-##**Set-up and Installation**
+### User Authentication
+1. **Sign Up**: Create a new account with username and password
+2. **Login**: Access your account with credentials
+3. **Session Management**: Stay logged in across browser sessions
+4. **Logout**: Securely end your session
 
-###**1. Clone the repo**
+### Recipe Generation
+1. **Choose Country**: Select from 6 African countries
+2. **Enter Ingredients**: List available ingredients (comma-separated)
+3. **Get Recipes**: AI generates personalized African recipes
+4. **Save to Database**: All generated recipes are stored for future reference
 
-git clone https://github.com/your-username/afriplates.git
-cd afriplates
+### Dashboard Features
+1. **Popular Recipes**: AI-generated trending African recipes
+2. **Recipe Statistics**: Track weekly and total recipe generation
+3. **Trending Ingredients**: Discover popular African cooking ingredients
+4. **Premium Content**: Purchase exclusive recipes with payments
 
-###**2. Create a virtual environment**
+### Payment System
+1. **Select Premium Recipe**: Choose from AI-generated premium content
+2. **Payment Method**: M-Pesa, Card, or Bank transfer
+3. **Secure Processing**: Intasend handles all payment transactions
+4. **Instant Access**: Unlock recipe content upon successful payment
 
-python -m venv venv
-source venv/bin/activate   # On Linux/Mac
-venv\Scripts\activate      # On Windows
+## 🔧 API Endpoints
 
-###**3. Install dependencies**
+### Authentication
+- `POST /signup` - Create new user account
+- `POST /login` - User authentication
+- `POST /logout` - End user session
+- `GET /login` - Login page
 
-pip install flask flask-cors openai
+### Recipe Management
+- `GET /` - Main dashboard
+- `POST /recommend` - Generate recipe recommendations
+- `GET /popular-recipes` - Get popular African recipes
+- `GET /trending-ingredients` - Get trending ingredients
+- `GET /recipe-stats` - Get recipe generation statistics
 
-###**4. Add your OpenAI API Key**
+### Payment Processing
+- `POST /buy-recipe` - Purchase premium recipe
+- `GET /payment-status/<id>` - Check payment status
 
-In app.py:
+## 🗄️ Database Schema
 
-openai.api_key = "YOUR_OPENAI_API_KEY"
+### User Table
+- `id` - Primary key
+- `username` - Unique username
+- `email` - User email
+- `password` - Hashed password
 
-###**5. Run the app**
+### Recipe Table
+- `id` - Primary key
+- `user_id` - Foreign key to users
+- `ingredients` - Input ingredients
+- `recipes` - Generated recipes
+- `created_at` - Timestamp
 
-python app.py
+### PopularRecipe Table
+- `id` - Primary key
+- `title` - Recipe title
+- `content` - Recipe content
+- `is_premium` - Premium status
+- `price` - Recipe price
+- `created_at` - Timestamp
 
-Visit: http://127.0.0.1:5000
+### Payment Table
+- `id` - Primary key
+- `user_id` - Foreign key to users
+- `recipe_id` - Foreign key to recipes
+- `amount` - Payment amount
+- `status` - Payment status
+- `transaction_id` - Payment reference
+- `created_at` - Timestamp
 
+## 🔐 Security Features
 
-##**Future Improvements**
+- **Password Hashing**: Bcrypt for secure password storage
+- **Session Management**: Flask sessions with secure keys
+- **SQL Injection Protection**: SQLAlchemy ORM
+- **SSL Database Connection**: Encrypted data transmission
+- **Environment Variables**: Secure API key management
 
-Add M-Pesa payments for premium recipes
+## 💳 Payment Integration
 
-Better personalized recommendations
+### Supported Payment Methods
+- **M-Pesa**: Mobile money payments (Kenya)
+- **Card Payments**: Visa/Mastercard
+- **Bank Transfers**: Direct bank payments
+- **Mobile Money**: Other African mobile payment systems
 
-More African cuisines & cultures included
+### Payment Flow
+1. User selects premium content
+2. Choose payment method
+3. Intasend processes payment
+4. Real-time status updates
+5. Content unlocked upon success
 
+## 🌍 Deployment
+
+### Local Development
+```powershell
+.\activate.ps1
+python backend\app.py
+```
+
+### Production Deployment
+1. **Environment Setup**: Configure production environment variables
+2. **Database**: Set up production TiDB Cloud instance
+3. **SSL Certificates**: Ensure valid SSL certificates
+4. **Payment Setup**: Configure live Intasend credentials
+5. **WSGI Server**: Use Gunicorn or similar for production
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🆘 Troubleshooting
+
+### Common Issues
+
+**Database Connection Errors**
+- Verify TiDB Cloud credentials
+- Check SSL certificate path
+- Ensure network connectivity
+
+**API Key Issues**
+- Verify OpenAI/Gemini API keys
+- Check API quota and billing
+- Ensure correct environment variables
+
+**Payment Failures**
+- Verify Intasend credentials
+- Check test/live mode settings
+- Ensure sufficient account balance
+
+**Installation Problems**
+- Use Python 3.8+ 
+- Activate virtual environment
+- Install all required dependencies
+
+### Getting Help
+- Open an issue on GitHub
+- Check existing issues for solutions
+- Review the documentation
+
+## 📞 Contact
+
+- **Project**: [AfriPlates](https://github.com/Flavian6972/AfriPlates)
+- **Author**: Flavian6972
+- **Email**: [Contact through GitHub]
 
 ##**Team AfriPlates**
 
