@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | AfriPlates</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      background-color: #fdfcf9;
+      color: #333;
+    }
+
+    header {
+      background: #5A3E2B;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 1.5rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #5A3E2B;
+    }
+
+    p {
+      margin: 1rem 0;
+      font-size: 1.05rem;
+    }
+
+    /* Food gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .gallery img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    }
+
+    /* Team section */
+    .team {
+      margin-top: 2rem;
+    }
+
+    .team-members {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+
+    .member {
+      flex: 1 1 220px;
+      text-align: center;
+      background: #fafafa;
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+
+    .member img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 0.5rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+      background: #5A3E2B;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>AfriPlates</h2>
+  </header>
+
+  <main>
+    <h1>About AfriPlates</h1>
+    <p>
+      AfriPlates is a recipe recommendation platform built to celebrate the rich 
+      and diverse cuisines of Africa. Our goal is to make it easy for anyone to 
+      discover and prepare authentic African dishes, using the ingredients they 
+      already have at home.
+    </p>
+    <p>
+      AfriPlates is more than a recipe site—it’s a digital kitchen that brings Africa’s flavors to your table.
+    </p>
+
+    <!-- Food Gallery -->
+    <h2>Food from Across Africa</h2>
+    <div class="gallery">
+      <img src="images/ugali-kenya.jpg" alt="Kenya - Ugali with Sukuma Wiki"> 
+      <img src="images/jollof-nigeria.jpg" alt="Nigeria - Jollof Rice">
+      <img src="images/bunny-chow-sa.jpg" alt="South Africa - Bunny Chow"> 
+      <img src="images/injera-ethiopia.jpg" alt="Ethiopia - Injera with Stew">
+    </div>
+
+    <!-- Team Section -->
+    <div class="team">
+      <h2>Meet Our Team</h2>
+      <div class="team-members">
+        <div class="member">
+          <img src="images/flavian.jpg" alt="Team Member 1">
+          <h3>Flavian Onyango</h3>
+          <p>Frontend Developer <br> Designed the user interface</p>
+        </div>
+        <div class="member">
+          <img src="images/member2.jpg" alt="Team Member 2">
+          <h3>Paul Tibi</h3>
+          <p>Backend Developer <br> Built the recipe API integration</p>
+        </div>
+        <div class="member">
+          <img src="images/member3.jpg" alt="Team Member 3">
+          <h3>Fabian</h3>
+          <p>Content & Research <br> Curated authentic African recipes</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 AfriPlates | Recipe Recommender
+  </footer>
+</body>
+</html>

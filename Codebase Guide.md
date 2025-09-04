@@ -293,8 +293,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Author**: Flavian6972
 - **Email**: [Contact through GitHub]
 
-##**Team AfriPlates**
+---
 
-Flavian Onyango
-Paul Tibi
-Fabian Kitonyi
+**AfriPlates** - Celebrating African cuisine through technology 🌍✨

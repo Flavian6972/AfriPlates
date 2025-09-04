@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Recipe Recommender</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Homepage-->
+  <header class="header">
+    <h1>AfriPlates</h1>
+    <p><b><em>For Africa, By Africa</em></b></p>
+    <p><b><em>Flavour | Culture | Home</em></b></p>
+  </header>
+
+  <nav class="navbar">
+    <ul>
+      <li><a href="login_page.html">Login</a></li>
+      <li><a href="#">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="#">FAQs</a></li>
+      <li><a href="#">Reviews</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <h2>Welcome to AfriPlates!</h2>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3>Popular Recipes</h3>
+        <p id="popular-recipes"><a href="#"></a></p>
+      </div>
+
+      <div class="card">
+        <h3>Recipes Generated</h3>
+        <p id="recipes-count">0 this week</p>
+      </div>
+
+      <div class="card">
+        <h3>Trending Ingredients</h3>
+        <p id="trending-ingredient"><a href="#"></a></p>
+      </div>
+    </div><br><br>
+
+    <div class="content"></div>
+  <!-- Step 2: Choose Country -->
+  <div id="country-section">
+    <h3>Choose Your Country</h3>
+    <div class="container">
+      <div class="card" onclick="selectCountry('Kenya')">🇰🇪 Kenya</div>
+      <div class="card" onclick="selectCountry('Nigeria')">🇳🇬 Nigeria</div>
+      <div class="card" onclick="selectCountry('Ghana')">🇬🇭 Ghana</div>
+      <div class="card" onclick="selectCountry('South Africa')">🇿🇦 South Africa</div>
+      <div class="card" onclick="selectCountry('Tanzania')">🇹🇿 Tanzania</div>
+      <div class="card" onclick="selectCountry('Uganda')">🇺🇬 Uganda</div>
+    </div>
+  </div>
+
+  <!-- Enter Ingredients -->
+  <div id="ingredients-section" class="hidden">
+    <h3 id="country-title"></h3>
+    <p>Enter ingredients (comma separated):</p>
+    <input type="text" id="ingredients" placeholder="e.g. chicken, tomato, onion">
+    <button onclick="getRecipes()">Get Recipes</button>
+
+    <div id="results" class="results"></div>
+  </div>
+  </main>
+  <footer class="footer">
+    &copy;2025 AfriPlates Recipe Recommender
+  </footer>
+  <script src="interactive.js"></script>
+</body>
+</html>
